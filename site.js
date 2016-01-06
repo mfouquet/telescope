@@ -1,6 +1,6 @@
 
 
-var url = "https://api.nasa.gov/planetary/apod?api_key=" + key + "&format=JSON";
+var url = "https://api.nasa.gov/planetary/apod?api_key=" + key;
 
 
 $.ajax({
