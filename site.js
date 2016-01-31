@@ -8,20 +8,38 @@ $.ajax({
   success: handleResult
 });
 
+
+
 function handleResult(result){
-  var randomNumber = Math.floor(Math.random() * 10) + 1;
-
-
-  $("#image_obj").attr("src", "images/" + randomNumber.toString() + ".jpg");
 
   if(result.media_type == "video") {
     $("#apod_img_id").css("display", "none");
     $("#apod_vid_id").attr("src", result.url);
   }
   else {
-    $("#apod_vid_id").css("display", "none");
+
     $("#image_obj").attr("src", result.url);
-    $(".image__container").addClass("image__container--shown");
+    var randomNumber = Math.floor(Math.random() * 10) + 1;
+
+
+    //$("#image_obj").attr("src", "images/" + randomNumber.toString() + ".jpg");
+
+    $('#image_obj').load(function(){
+      $(".image__container").addClass("image__container--shown");
+    });
+
+    $( "#image_obj" ).click(function() {
+      $('.header').slideUp(250, function () {
+        $('#image_obj').addClass('image--zoom');
+        $('.explanation').addClass('explanation--black');
+
+      });//addClass('header--hide');
+    });
+
+    $( "#image_obj" ).click(function() {
+
+    });
+
   }
 
   //$("#reqObject").text(url);
