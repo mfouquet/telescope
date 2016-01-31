@@ -1,7 +1,4 @@
-
-
 var url = "https://api.nasa.gov/planetary/apod?api_key=" + key;
-
 
 $.ajax({
   url: url,
@@ -9,41 +6,39 @@ $.ajax({
 });
 
 
-
 function handleResult(result){
+  var url;
 
-  if(result.media_type == "video") {
-    $("#apod_img_id").css("display", "none");
-    $("#apod_vid_id").attr("src", result.url);
-  }
-  else {
-
-    $("#image_obj").attr("src", result.url);
-    var randomNumber = Math.floor(Math.random() * 10) + 1;
-
-
-    //$("#image_obj").attr("src", "images/" + randomNumber.toString() + ".jpg");
-
-    $('#image_obj').load(function(){
-      $(".image__container").addClass("image__container--shown");
-    });
-
-    $( "#image_obj" ).click(function() {
-      $('.header').slideUp(250, function () {
-        $('#image_obj').addClass('image--zoom');
-        $('.explanation').addClass('explanation--black');
-
-      });//addClass('header--hide');
-    });
-
-    $( "#image_obj" ).click(function() {
-
-    });
-
+  if(result.media_type != "image") {
+    $(".card__title__text").text(result.title);
+    url = result.url;
+  } else {
+    $(".card__title__text").text("TELESCOPE");
+    url = grabRandomImage();
   }
 
-  //$("#reqObject").text(url);
-  $("#returnObject").text(JSON.stringify(result, null, 4));
-  $("#apod_explaination").text(result.explanation);
-  $("#header_obj").text(result.title);
+  loadImage(url);
+}
+
+
+function grabRandomImage() {
+  var randomNumber = Math.floor(Math.random() * 12) + 1;
+  var randomFile =  "images/" + randomNumber.toString() + ".jpg";
+
+  return randomFile
+}
+
+
+function loadImage(url) {
+  $(".card__image").attr("src", url);
+  $('.card__image').load(function(){
+    $(".card").addClass("card--shown");
+  });
+
+  $( ".card__image" ).click(function() {
+    $('.card__title').slideUp(250, function () {
+      $('.card__image').addClass('card__image--zoom');
+      $('.fullscreen-background').addClass('fullscreen-background--shown');
+    });
+  });
 }

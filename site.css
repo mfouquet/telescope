@@ -1,19 +1,4 @@
-/*$white:       #FFFFFF;
-$black:       #111111;
-
-$dark-blue:   #10222B;
-$med-blue:    #2C5D75;
-
-$green:       #A7C520;
-
-$dark-gray:   #98A89E;
-$med-gray:    #E8E8E8;
-$light-gray:  #FBFBFB;
-
-$red:         #D40015;
-$orange:      #FF4411;*/
-
-@keyframes imageShown {
+@keyframes cardShown {
     from {
       opacity: 0;
       transform: translateY(-25px) scale(0.95);
@@ -24,18 +9,7 @@ $orange:      #FF4411;*/
     }
 }
 
-@keyframes disappearText {
-  from {
-    opacity: 1;
-    max-height: 1000px;
-  }
-  to {
-    opacity: 0;
-    max-height: 0;
-  }
-}
-
-@keyframes imageZoom {
+@keyframes cardImageZoom {
   from {
     max-height: 80vh;
     max-width: 80vw;
@@ -46,102 +20,38 @@ $orange:      #FF4411;*/
   }
 }
 
-@keyframes backgroundBlack {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 100%;
-  }
+@keyframes fullscreenBackgroundShown {
+  from { opacity: 0; }
+  to { opacity: 100%; }
 }
+
+
 
 html { font-size: 16px; }
 
+
+
 body {
   margin: 0;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Quicksand', serif;
   -webkit-font-smoothing: antialiased;
   font-size: 100%;
-  color: #10222B;
   min-height: 100%;
 }
 
-.container {
+
+
+.page__container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: url(/background2.svg) top/cover no-repeat;
+  background: url(/background.svg) top/cover no-repeat;
 }
 
-.header {
-  width: 100%;
-  max-height: 1000px;
-  padding: 2rem 0;
-font-family: 'Quicksand', serif;
-  font-weight: 100;
-  font-size: 1.5rem;
-  color: #444;
-  background: #eee;
-  text-align: center;
-  word-spacing: 0.5rem;
-  display: flex;
-justify-content: center;
-align-items: center;
-}
 
-.header--hide {
-  opacity: 1;
-  animation-name: disappearText;
-  animation-duration: 1s;
-}
 
-.header-left {
-    background: url(/line-left.png) top/cover no-repeat;
-    height: 1px;
-    width: 25%;
-    margin-right: 2rem;
-}
-
-.header-right {
-    background: url(/line-right.png) top/cover no-repeat;
-    height: 1px;
-    width: 25%;
-    margin-left: 2rem;
-}
-
-.image__container {
-  /*border: 20px solid #eee;*/
-  box-shadow: 4px 4px 32px rgba(0,0,0,0.25);
-  position: relative;
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(-25px);
-}
-
-.image__container--shown {
-  opacity: 1;
-  transform: translateY(0px);
-  animation-name: imageShown;
-  animation-duration: 1s;
-  animation-timing-function: cubic-bezier(.17,.67,.32,1.03);
-}
-
-.image {
-  max-height: 80vh;
-  max-width: 80vw;
-  display: block;
-}
-
-.image--zoom {
-  max-height: 100vh;
-  max-width: 100vw;
-  animation-name: imageZoom;
-    animation-duration: 1s;
-    animation-timing-function: cubic-bezier(.17,.67,.32,1.03);
-}
-
-.explanation {
+.fullscreen-background {
   height: 100vh;
   width: 100vw;
   position: absolute;
@@ -152,9 +62,80 @@ align-items: center;
 
 }
 
-.explanation--black {
-  opacity: 1;
-  animation-name: backgroundBlack;
+  .fullscreen-background--shown {
+    opacity: 1;
+    animation-name: fullscreenBackgroundShown;
     animation-duration: 1s;
     animation-timing-function: cubic-bezier(.17,.67,.32,1.03);
+  }
+
+
+
+.card {
+  box-shadow: 4px 4px 32px rgba(0,0,0,0.25);
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-25px);
 }
+
+  .card--shown {
+    opacity: 1;
+    transform: translateY(0px);
+    animation-name: cardShown;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(.17,.67,.32,1.03);
+  }
+
+
+
+.card__image {
+  max-height: 80vh;
+  max-width: 80vw;
+  display: block;
+}
+
+  .card__image--zoom {
+    max-height: 100vh;
+    max-width: 100vw;
+    animation-name: cardImageZoom;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(.17,.67,.32,1.03);
+  }
+
+
+
+.card__title {
+  width: 100%;
+  max-height: 1000px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #EEE;
+  padding: 2rem 0;
+}
+
+  .card__title__text {
+    font-family: 'Quicksand', serif;
+    font-weight: 100;
+    font-size: 1.5rem;
+    color: #444;
+    text-align: center;
+    word-spacing: 0.5rem;
+    letter-spacing: 1px;
+  }
+
+  .card__title__left,
+  .card__title__right {
+    height: 1px;
+    width: 25%;
+  }
+
+  .card__title__left {
+    background: url(/line-left.png) top/cover no-repeat;
+    margin-right: 2rem;
+  }
+  .card__title__right {
+    background: url(/line-right.png) top/cover no-repeat;
+    margin-left: 2rem;
+  }
