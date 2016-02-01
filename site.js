@@ -1,4 +1,10 @@
 var url = "https://api.nasa.gov/planetary/apod?api_key=" + key;
+var title_link = $(".card__title__link").first();
+var title_text = $(".card__title__text").first();
+var cardImage = $(".card__image").first();
+var cardTitle = $(".card__title").first();
+var fullscreenBg = $('.fullscreen-background').first();
+
 
 $.ajax({
   url: url,
@@ -10,10 +16,10 @@ function handleResult(result){
   var url;
 
   if(result.media_type != "image") {
-    $(".card__title__text").text(result.title);
+    title_link.show().text(result.title);
     url = result.url;
   } else {
-    $(".card__title__text").text("TELESCOPE");
+    title_text.show().text("TELESCOPE");
     url = grabRandomImage();
   }
 
@@ -22,7 +28,7 @@ function handleResult(result){
 
 
 function grabRandomImage() {
-  var randomNumber = Math.floor(Math.random() * 12) + 1;
+  var randomNumber = Math.floor(Math.random() * 11) + 1;
   var randomFile =  "images/" + randomNumber.toString() + ".jpg";
 
   return randomFile
@@ -30,15 +36,35 @@ function grabRandomImage() {
 
 
 function loadImage(url) {
-  $(".card__image").attr("src", url);
-  $('.card__image').load(function(){
+  cardImage.attr("src", url);
+  cardImage.load(function(){
     $(".card").addClass("card--shown");
   });
 
-  $( ".card__image" ).click(function() {
-    $('.card__title').slideUp(250, function () {
-      $('.card__image').addClass('card__image--zoom');
-      $('.fullscreen-background').addClass('fullscreen-background--shown');
-    });
+
+
+  cardImage.click(function() {
+    if (cardTitle.is(':hidden')) {
+      fullscreenBg.one('animationend', function(e) {
+        cardImage.removeClass('card__image--zoom-out');
+        fullscreenBg.removeClass('fullscreen-background--hidden');
+        cardImage.removeClass('card__image--zoom-in');
+        fullscreenBg.removeClass('fullscreen-background--shown');
+        cardTitle.slideDown(250);
+      });
+      cardImage.addClass('card__image--zoom-out');
+      fullscreenBg.addClass('fullscreen-background--hidden');
+
+    } else {
+      fullscreenBg.one('animationend', function(e) {
+        cardImage.removeClass('card__image--zoom-out');
+        fullscreenBg.removeClass('fullscreen-background--hidden');
+      });
+
+      cardTitle.slideUp(250, function () {
+        cardImage.addClass('card__image--zoom-in');
+        fullscreenBg.addClass('fullscreen-background--shown');
+      });
+    }
   });
 }

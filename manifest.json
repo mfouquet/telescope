@@ -1,7 +1,10 @@
 {
-  "name": "iGoogle new tab page",
-  "description": "Override the new tab page with iGoogle",
-  "version": "0.2",
+  "name": "Telescope",
+  "description": "The NASA Astronomy Picture of the Day in every new tab you open.",
+  "version": "1.0",
+  "icons": {
+    "128": "icon_128.png" 
+  },
   "chrome_url_overrides": {
     "newtab": "redirect.html"
   },

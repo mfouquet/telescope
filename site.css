@@ -9,7 +9,7 @@
     }
 }
 
-@keyframes cardImageZoom {
+@keyframes cardImageZoomIn {
   from {
     max-height: 80vh;
     max-width: 80vw;
@@ -20,9 +20,25 @@
   }
 }
 
+@keyframes cardImageZoomOut {
+  from {
+    max-height: 100vh;
+    max-width: 100vw;
+  }
+  to {
+    max-height: 80vh;
+    max-width: 80vw;
+  }
+}
+
 @keyframes fullscreenBackgroundShown {
   from { opacity: 0; }
   to { opacity: 100%; }
+}
+
+@keyframes fullscreenBackgroundHidden {
+  from { opacity: 100%; }
+  to { opacity: 0; }
 }
 
 
@@ -59,7 +75,6 @@ body {
   top: 0;
   opacity: 0;
   background: #000;
-
 }
 
   .fullscreen-background--shown {
@@ -67,6 +82,14 @@ body {
     animation-name: fullscreenBackgroundShown;
     animation-duration: 1s;
     animation-timing-function: cubic-bezier(.17,.67,.32,1.03);
+    animation-fill-mode: both;
+  }
+
+  .fullscreen-background--hidden {
+    animation-name: fullscreenBackgroundHidden;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(.17,.67,.32,1.03);
+    animation-fill-mode: both;
   }
 
 
@@ -93,14 +116,22 @@ body {
   max-height: 80vh;
   max-width: 80vw;
   display: block;
+  cursor: zoom-in;
 }
 
-  .card__image--zoom {
-    max-height: 100vh;
-    max-width: 100vw;
-    animation-name: cardImageZoom;
+  .card__image--zoom-in {
+    animation-name: cardImageZoomIn;
     animation-duration: 1s;
     animation-timing-function: cubic-bezier(.17,.67,.32,1.03);
+    animation-fill-mode: both;
+    cursor: zoom-out;
+  }
+
+  .card__image--zoom-out {
+    animation-name: cardImageZoomOut;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(.17,.67,.32,1.03);
+    animation-fill-mode: both;
   }
 
 
@@ -115,7 +146,9 @@ body {
   padding: 2rem 0;
 }
 
-  .card__title__text {
+  .card__title__text,
+  .card__title__link {
+    display: none;
     font-family: 'Quicksand', serif;
     font-weight: 100;
     font-size: 1.5rem;
@@ -123,6 +156,16 @@ body {
     text-align: center;
     word-spacing: 0.5rem;
     letter-spacing: 1px;
+  }
+
+  .card__title__link {
+    text-decoration: none;
+    transition: opacity 0.5s cubic-bezier(.17,.67,.32,1.03);
+  }
+
+  .card__title__link:hover {
+    cursor: pointer;
+    opacity: 0.75;
   }
 
   .card__title__left,
